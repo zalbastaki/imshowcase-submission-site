@@ -1,0 +1,16 @@
+{{!< default}}
+
+<div class="submission-page">
+    <div class="form-container">
+        <form action="/api/submission/{{#if project._id}}{{project._id}}{{/if}}" method="post">
+        <input type="hidden" name="action">
+
+        <div class="tab">
+            <input type="text" name="title" value="{{project.title}}" placeholder="Project's Title" class="text-input">
+        </div>
+        
+
+        <button type="submit" class="btn btn-secondary" style="color: grey">Submit</button>
+    </form>
+    </div>
+</div>
