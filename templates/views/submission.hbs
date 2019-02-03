@@ -11,25 +11,61 @@
 
         <input id="who" class="tab-radio" type="radio" name="tabs" checked="checked">
         <input id="what" class="tab-radio" type="radio" name="tabs">
+        <input id="details" class="tab-radio" type="radio" name="tabs">
+        <input id="tech" class="tab-radio" type="radio" name="tabs">
+        <input id="code" class="tab-radio" type="radio" name="tabs">
 
-        <div class="progress-bar-container">
-            <ul class="progress-bar">
-                <li class="active-tab">Who?</li>
-                <li>What?</li>
+        <div class="progressbar-container">
+            <ul class="progressbar">
+                <li id="who-step">Who?</li>
+                <li id="what-step">What?</li>
+                <li id="details-step">Details</li>
+                <li id="tech-step">Tech</li>
+                <li id="code-step">Code</li>
             </ul>
         </div>
         
         <div id="who-content">
             <im-text-input input-id="developer" input-name="developer" input-value="{{project.developer}}" label="developer"></im-text-input>
             <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members"></im-text-input>
+            <div class="nav-buttons">
+                <div></div>
+                <label for="what" class="next-button"><i class="fas fa-chevron-right"></i></label>
+            </div>
         </div>
         
         <div id="what-content">
-            <p>You're on tab 2</p>
+            <p>You're in what tab</p>
+            <div class="nav-buttons">
+                <label for="who" class="back-button"><i class="fas fa-chevron-left"></i></label>
+                <label for="details" class="next-button"><i class="fas fa-chevron-right"></i></label>
+            </div>
+        </div>
+
+        <div id="details-content">
+            <p>You're in details tab</p>
+            <div class="nav-buttons">
+                <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
+                <label for="tech" class="next-button"><i class="fas fa-chevron-right"></i></label>
+            </div>
         </div>
         
-
-        <button type="submit" class="btn btn-secondary" style="color: grey">Submit</button>
+        <div id="tech-content">
+            <p>You're in tech tab</p>
+            <div class="nav-buttons">
+                <label for="details" class="back-button"><i class="fas fa-chevron-left"></i></label>
+                <label for="code" class="next-button"><i class="fas fa-chevron-right"></i></label>
+            </div>
+        </div>
+        
+        <div id="code-content">
+            <p>You're in code tab</p>
+            <div class="nav-buttons">
+                <label for="tech" class="back-button"><i class="fas fa-chevron-left"></i></label>
+                <button type="submit" class="btn btn-secondary" style="color: grey">Submit</button>
+            </div>
+        </div>
+        
     </form>
     </div>
 </div>

@@ -15,15 +15,15 @@ Project.add({
 	//what
 	title: { type: Types.Text, initial: true, note: "required" },
 	description: { type: Types.Textarea, max: 120, initial: true, note: "required" },
-	//tell us more
+	//details
 	theStory: { type: Types.Markdown },
 	instructions: { type: Types.Markdown },
 	ageRestriction: { type: Types.Text },
 	images: { type: Types.CloudinaryImage },
-	//tech details
+	//tech
 	techUsed: { type: Types.Text },
 	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required" },
-	//the project
+	//code
 	githubLink: { type: Types.Url, match: /^https?:\/\/github\.com\/.+\/.+$/i },
 	demoVersion: { type: Types.File, storage: storage },
 	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required" },
