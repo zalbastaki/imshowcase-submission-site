@@ -1,12 +1,31 @@
 {{!< default}}
 
+{{!-- loads custom web elements polyfill --}}
+<script src="https://unpkg.com/@webcomponents/custom-elements"></script>
+
+{{!-- page construction begins --}}
 <div class="submission-page">
     <div class="form-container">
         <form action="/api/submission/{{#if project._id}}{{project._id}}{{/if}}" method="post">
         <input type="hidden" name="action">
 
-        <div class="tab">
-            <input type="text" name="title" value="{{project.title}}" placeholder="Project's Title" class="text-input">
+        <input id="who" class="tab-radio" type="radio" name="tabs" checked="checked">
+        <input id="what" class="tab-radio" type="radio" name="tabs">
+
+        <div class="progress-bar-container">
+            <ul class="progress-bar">
+                <li class="active-tab">Who?</li>
+                <li>What?</li>
+            </ul>
+        </div>
+        
+        <div id="who-content">
+            <im-text-input input-id="developer" input-name="developer" input-value="{{project.developer}}" label="developer"></im-text-input>
+            <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members"></im-text-input>
+        </div>
+        
+        <div id="what-content">
+            <p>You're on tab 2</p>
         </div>
         
 
@@ -14,3 +33,33 @@
     </form>
     </div>
 </div>
+
+{{!-- template used for custom tag --}}
+<template id="t-im-text-input">
+  <input type="text" class="text-input">
+  <label class="text-input-label"></label>
+  <div class="line-animation"></div>
+</template>
+
+{{!-- define custom web element --}}
+<script>
+    class IMTextInput extends HTMLElement {
+        constructor() {
+            super(); //required
+            
+            var t = document.getElementById('t-im-text-input'); //get the template of the custom tag
+            var input = t.content.querySelector('input');
+            var label = t.content.querySelector('label');
+            
+            input.id = this.getAttribute('input-id'); //use input-id attribute to set the input's id
+            input.name = this.getAttribute('input-name'); //use input-name attribute to set input's name
+            input.value = this.getAttribute('input-value'); //use input-value attribute to set input's value
+            label.setAttribute('for', this.getAttribute('input-id')); //use input-id attribute to set the label's for attribute
+            label.innerText = this.getAttribute('label'); //use label attribute to set the inner text of the label tag
+
+            var clone = document.importNode(t.content, true);
+            this.appendChild(clone);
+        }
+    }
+    window.customElements.define('im-text-input', IMTextInput);
+</script>
