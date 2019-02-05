@@ -1,0 +1,61 @@
+//IM-TEXT-INPUT CUSTOM TAG STYLING
+im-text-input {
+    width: 100%;
+    padding-top: 40px;
+    position: relative;
+    display: block;
+    color: grey;
+}
+
+.text-input-label {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    font-weight: 400;
+    font-size: 15px;
+    cursor: text;
+    transition: 0.3s top;
+    text-transform: uppercase;
+}
+
+.text-input:placeholder-shown ~ .text-input-label {
+    top: 55px;
+}
+  
+.text-input:focus ~ .text-input-label {
+    top: 25px;
+}
+  
+.text-input {
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0 10px 0;
+    width: 100%;
+}
+  
+.text-input-line-animation {
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right,rgb(16, 32, 102), rgb(77, 168, 221));
+    border-image-slice: 1;
+    position: absolute;
+    margin-top: -2px;
+    width: 0;
+    transition: all 0.4s;
+}
+  
+.text-input:focus ~.text-input-line-animation {
+    width: 100%;
+}
+
+.text-input-required {
+    display: none;
+    float: right;
+    font-size: 10px;
+    padding-top: 2px;
+}
+
+.text-input:required ~ .text-input-required {
+    display: block;
+}

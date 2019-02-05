@@ -1,0 +1,113 @@
+//PROGRESS BAR STYLING
+.progressbar {
+    counter-reset: step;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.progressbar li { //progress bar text
+    width: 20%; //100% divided by number of steps
+    list-style-type: none;
+    text-align: center;
+    text-transform: uppercase;
+    color: grey;
+    position: relative;
+}
+
+.progressbar li:before { //progress bar circles
+    content: counter(step);
+    counter-increment: step;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px auto;
+    //bring circles infront of connectors
+    position: relative;
+    z-index: 1;
+    background-color: white; //cover connectors
+    transition: all 0.4s;
+}
+
+.progressbar li:after { //progress bar connectors
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; //same as circle border
+    background-color: #ddd; //same as circle border
+    top: 20px; //half of the height of circles
+    left: -50%; //to move connectors back
+    transition: all 0.4s;
+}
+
+.progressbar li:first-child:after { //remove first connector
+    content: none;
+}
+
+//state of text when a tab is active
+#who:checked ~ .progressbar-container #who-step,
+#what:checked ~ .progressbar-container #who-step,
+#what:checked ~ .progressbar-container #what-step,
+#details:checked ~ .progressbar-container #who-step,
+#details:checked ~ .progressbar-container #what-step,
+#details:checked ~ .progressbar-container #details-step,
+#tech:checked ~ .progressbar-container #who-step,
+#tech:checked ~ .progressbar-container #what-step,
+#tech:checked ~ .progressbar-container #details-step,
+#tech:checked ~ .progressbar-container #tech-step,
+#code:checked ~ .progressbar-container #who-step,
+#code:checked ~ .progressbar-container #what-step,
+#code:checked ~ .progressbar-container #details-step,
+#code:checked ~ .progressbar-container #tech-step,
+#code:checked ~ .progressbar-container #code-step {
+    color: rgb(67, 82, 134);
+    font-weight: 600;
+}
+
+//state of current circle when a tab is active
+#who:checked ~ .progressbar-container #who-step:before,
+#what:checked ~ .progressbar-container #what-step:before,
+#details:checked ~ .progressbar-container #details-step:before,
+#tech:checked ~ .progressbar-container #tech-step:before,
+#code:checked ~ .progressbar-container #code-step:before {
+    border-color: rgb(67, 82, 134);
+    border-width: 2px;
+}
+
+//state of previous circles when a tab is active
+#what:checked ~ .progressbar-container #who-step:before,
+#details:checked ~ .progressbar-container #who-step:before,
+#details:checked ~ .progressbar-container #what-step:before,
+#tech:checked ~ .progressbar-container #who-step:before,
+#tech:checked ~ .progressbar-container #what-step:before,
+#tech:checked ~ .progressbar-container #details-step:before,
+#code:checked ~ .progressbar-container #who-step:before,
+#code:checked ~ .progressbar-container #what-step:before,
+#code:checked ~ .progressbar-container #details-step:before,
+#code:checked ~ .progressbar-container #tech-step:before {
+    font-family: "Font Awesome 5 Free";
+    content: '\f00c';
+    line-height: 40px;
+    border-color: rgb(67, 82, 134);
+    border-width: 2px;
+    background-color: rgb(202, 213, 255);
+}
+
+//state of connectors when a tab is active
+#what:checked ~ .progressbar-container #what-step:after,
+#details:checked ~ .progressbar-container #what-step:after,
+#details:checked ~ .progressbar-container #details-step:after,
+#tech:checked ~ .progressbar-container #what-step:after,
+#tech:checked ~ .progressbar-container #details-step:after,
+#tech:checked ~ .progressbar-container #tech-step:after,
+#code:checked ~ .progressbar-container #what-step:after,
+#code:checked ~ .progressbar-container #details-step:after,
+#code:checked ~ .progressbar-container #tech-step:after,
+#code:checked ~ .progressbar-container #code-step:after {
+    background-color: rgb(67, 82, 134);
+    height: 2px;
+}

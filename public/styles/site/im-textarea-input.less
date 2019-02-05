@@ -1,0 +1,65 @@
+im-textarea-input {
+    position: relative;
+    color: grey;
+}
+
+.textarea-input {
+    font-size: 20px;
+    width: 100%;
+    height: 20vh;
+    min-height: 40px;
+    margin-top: 15px;
+    display: block;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    resize: vertical;
+}
+
+.textarea-input-label {
+    margin: 0;
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+    font-weight: 400;
+    font-size: 15px;
+    cursor: text;
+    top: 15px;
+    left: 0;
+    transition: 0.3s top;
+    text-transform: uppercase;
+}
+
+.textarea:placeholder-shown ~ .textarea-input-label {
+    top: -130px;
+}
+  
+.textarea-input:focus ~ .textarea-input-label {
+    top: -155px;
+}
+
+.textarea-input-line-animation {
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right,rgb(16, 32, 102), rgb(77, 168, 221));
+    border-image-slice: 1;
+    position: relative;
+    margin-top: -2px;
+    width: 0;
+    transition: all 0.4s;
+}
+  
+.textarea-input:focus ~ .textarea-input-line-animation {
+    width: 100%;
+}
+
+.textarea-input-required {
+    display: none;
+    float: right;
+    font-size: 10px;
+    padding-top: 2px;
+}
+
+.textarea-input:required ~ .textarea-input-required {
+    display: block;
+}

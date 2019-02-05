@@ -26,8 +26,9 @@
         </div>
         
         <div id="who-content">
-            <im-text-input input-id="developer" input-name="developer" input-value="{{project.developer}}" label="developer"></im-text-input>
+            <im-text-input input-id="developer" input-name="developer" input-value="{{project.developer}}" label="developer" input-required="true"></im-text-input>
             <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members"></im-text-input>
+            
             <div class="nav-buttons">
                 <div></div>
                 <label for="what" class="next-button"><i class="fas fa-chevron-right"></i></label>
@@ -35,7 +36,9 @@
         </div>
         
         <div id="what-content">
-            <p>You're in what tab</p>
+            <im-text-input input-id="title" input-name="title" input-value="{{project.title}}" label="title" input-required="true"></im-text-input>
+            <im-textarea-input input-id="description" input-name="description" input-value="{{project.description}}" label="description" input-required="true"></im-textarea-input>
+
             <div class="nav-buttons">
                 <label for="who" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <label for="details" class="next-button"><i class="fas fa-chevron-right"></i></label>
@@ -43,7 +46,10 @@
         </div>
 
         <div id="details-content">
-            <p>You're in details tab</p>
+            <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
+            <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story"></im-textarea-input>
+            <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
+            
             <div class="nav-buttons">
                 <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <label for="tech" class="next-button"><i class="fas fa-chevron-right"></i></label>
@@ -51,7 +57,8 @@
         </div>
         
         <div id="tech-content">
-            <p>You're in tech tab</p>
+            <im-text-input input-id="techUsed" input-name="techUsed" input-value="{{project.techUsed}}" label="what tech did you use?"></im-text-input>
+
             <div class="nav-buttons">
                 <label for="details" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <label for="code" class="next-button"><i class="fas fa-chevron-right"></i></label>
@@ -70,14 +77,23 @@
     </div>
 </div>
 
-{{!-- template used for custom tag --}}
+{{!-- template used for custom text input tag --}}
 <template id="t-im-text-input">
-  <input type="text" class="text-input">
+  <input type="text" class="text-input" placeholder=" ">
   <label class="text-input-label"></label>
-  <div class="line-animation"></div>
+  <div class="text-input-line-animation"></div>
+  <div class="text-input-required">Required</div>
 </template>
 
-{{!-- define custom web element --}}
+{{!-- template used for custom textarea input tag --}}
+<template id="t-im-textarea-input">
+    <label class="textarea-input-label"></label>
+    <textarea class="textarea-input" placeholder=" "></textarea>
+    <div class="textarea-input-line-animation"></div>
+    <div class="textarea-input-required">Required</div>
+</template>
+
+{{!-- define custom web elements --}}
 <script>
     class IMTextInput extends HTMLElement {
         constructor() {
@@ -90,6 +106,10 @@
             input.id = this.getAttribute('input-id'); //use input-id attribute to set the input's id
             input.name = this.getAttribute('input-name'); //use input-name attribute to set input's name
             input.value = this.getAttribute('input-value'); //use input-value attribute to set input's value
+            input.removeAttribute('required');
+            if (this.getAttribute('input-required') === "true") { //if input-require is true, set input to be required
+                input.required = true;
+            }
             label.setAttribute('for', this.getAttribute('input-id')); //use input-id attribute to set the label's for attribute
             label.innerText = this.getAttribute('label'); //use label attribute to set the inner text of the label tag
 
@@ -98,4 +118,28 @@
         }
     }
     window.customElements.define('im-text-input', IMTextInput);
+
+    class IMTextareaInput extends HTMLElement {
+        constructor() {
+            super(); //required
+
+            var t = document.getElementById('t-im-textarea-input');
+            var input = t.content.querySelector('textarea');
+            var label = t.content.querySelector('label');
+
+            input.id = this.getAttribute('input-id');
+            input.name = this.getAttribute('input-name');
+            input.innerText = this.getAttribute('input-value');
+            input.removeAttribute('required');
+            if (this.getAttribute('input-required') === "true") {
+                input.required = true;
+            }
+            label.setAttribute('for', this.getAttribute('input-id'));
+            label.innerText = this.getAttribute('label');
+
+            var clone = document.importNode(t.content, true);
+            this.appendChild(clone);
+        }
+    }
+    window.customElements.define('im-textarea-input', IMTextareaInput);
 </script>
