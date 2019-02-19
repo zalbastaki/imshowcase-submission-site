@@ -24,7 +24,6 @@ Project.add({
 	techUsed: { type: Types.Text },
 	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required", required: true },
 	//code
-	githubLink: { type: Types.Url, match: /^https?:\/\/github\.com\/.+\/.+$/i },
 	demoVersion: { type: Types.File, storage: storage },
 	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required", required: true },
 });
