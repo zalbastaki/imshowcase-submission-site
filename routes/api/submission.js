@@ -1,25 +1,48 @@
-var keystone = require('keystone');
-var Project = keystone.list('Project');
+const keystone = require('keystone');
+const User = keystone.list('User');
+const Project = keystone.list('Project');
+const cookieParser = require('cookie-parser');
+const jwt = require('../../utils/jwt');
 
 module.exports = async function (req, res) {
-  
-  var id = req.params.id;
 
-  if (!id) {
-    var newProject = new Project.model({
-      title: req.body.title,
+	const user = await User.model.findOne({ cognitoUsername: accessPayload.sub });
+
+	let project = await Project.model.findOne().where('developer', user.id);
+
+	console.log(project);
+
+  if (!project) {
+    var newProject = await Project.model.create({
+			developer: user._id,
+			title: req.body.title,
+			description: req.body.description,
+			ageRestriction: req.body.ageRestriction,
+			theStory: req.body.theStory,
+			instructions: req.body.instructions,
+			images: req.body.images,
+			techUsed: req.body.techUsed,
+			deviceNeeded: req.body.deviceNeeded,
+			demoVersion: req.body.demoVersion,
+			fullVersion: req.body.fullVersion,
     });
-    
-    await newProject.save();
-    
-    res.redirect("/submission/" + newProject._id);
   }
-  else if (id) {
-		await Project.model.update({_id:id}, {
-      title: req.body.title,
+  else if (project) {
+		
+		await project.update({
+      		title: req.body.title,
+			description: req.body.description,
+			ageRestriction: req.body.ageRestriction,
+			theStory: req.body.theStory,
+			instructions: req.body.instructions,
+			images: req.body.images,
+			techUsed: req.body.techUsed,
+			deviceNeeded: req.body.deviceNeeded,
+			demoVersion: req.body.demoVersion,
+			fullVersion: req.body.fullVersion,
     });
-
-    res.redirect("/submission/" + id);
 	}
+
+	res.redirect("/submission");
   
 };

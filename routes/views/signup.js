@@ -1,6 +1,6 @@
 var keystone = require('keystone');
-var signinUrl = require('../../utils/signinUrl');
+var signupUrl = require('../../utils/signupUrl');
 
 exports = module.exports = function (req, res) {
-	res.redirect(signinUrl);
+	res.redirect(signupUrl);
 };

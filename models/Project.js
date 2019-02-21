@@ -22,10 +22,10 @@ Project.add({
 	images: { type: Types.CloudinaryImage },
 	//tech
 	techUsed: { type: Types.Text },
-	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required", required: true },
+	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required" },
 	//code
 	demoVersion: { type: Types.File, storage: storage },
-	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required", required: true },
+	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required" },
 });
 
 /**

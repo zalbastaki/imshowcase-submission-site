@@ -1,26 +1,40 @@
-var keystone = require('keystone');
-var Project = keystone.list('Project');
+const keystone = require('keystone');
+const User = keystone.list('User');
+const Project = keystone.list('Project');
+const cookieParser = require('cookie-parser');
+const jwt = require('../../utils/jwt');
 
 exports = module.exports = async function (req, res) {
 
-	var view = new keystone.View(req, res);
-	var locals = res.locals;
-	var id = req.params.id;
+	const user = await User.model.findOne({ cognitoUsername: accessPayload.sub });
 
-	// locals.section is used to set the currently selected
-	// item in the header navigation.
-	locals.section = 'submission';
+	if (!user) {
+		res.redirect('/signin');
+		return;
+	} else {
+		const view = new keystone.View(req, res);
+		const locals = res.locals;
 
-	if (id) {
-		locals.project = await Project.model.findById(id);
+		let project = await Project.model.findOne().where('developer', user.id);
 
-		if (!locals.project) {
-			view.render('submission-not-found');
-			res.status(404).end();
-			return;
+		// locals.section is used to set the currently selected
+		// item in the header navigation.
+		locals.section = 'submission';
+
+		if (project) {
+			const id = project._id;
+			
+			locals.project = await Project.model.findById(id);
+
+			if (!locals.project) {
+				view.render('submission-not-found');
+				res.status(404).end();
+				return;
+			}
 		}
+		
+		// Render the view
+		view.render('submission');
 	}
 	
-	// Render the view
-	view.render('submission');
 };

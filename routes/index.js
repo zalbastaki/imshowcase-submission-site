@@ -18,9 +18,10 @@
  * http://expressjs.com/api.html#app.VERB
  */
 
-var keystone = require('keystone');
-var middleware = require('./middleware');
-var importRoutes = keystone.importer(__dirname);
+const keystone = require('keystone');
+const middleware = require('./middleware');
+const importRoutes = keystone.importer(__dirname);
+const cookieParser = require('cookie-parser');
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
@@ -34,14 +35,17 @@ var routes = {
 
 // Setup Route Bindings
 exports = module.exports = function (app) {
+	app.use(cookieParser());
+
 	// Views
 	app.get('/', routes.views.index);
 	app.get('/signin', routes.views.signin);
-	app.get('/submission', routes.views.submission);
-	app.get('/submission/:id', routes.views.submission);
+	app.get('/signup', routes.views.signup);
+	app.get('/api/auth', routes.api.auth);
+	app.get('/submission', routes.api.checkSignin, routes.views.submission);
+	app.get('/signout', routes.views.signout);
 
-	app.post('/api/submission', routes.api.submission);
-	app.post('/api/submission/:id', routes.api.submission);
+	app.post('/api/submission', routes.api.checkSignin, routes.api.submission);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

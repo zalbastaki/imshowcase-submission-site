@@ -6,7 +6,7 @@
 {{!-- page construction begins --}}
 <div class="submission-page">
     <div class="form-container">
-        <form action="/api/submission/{{#if project._id}}{{project._id}}{{/if}}" method="post">
+        <form action="/api/submission" method="post">
         <input type="hidden" name="action">
 
         <input id="who" class="tab-radio" type="radio" name="tabs" checked="checked">
@@ -26,8 +26,7 @@
         </div>
         
         <div id="who-content">
-            <im-text-input input-id="developer" input-name="developer" input-value="{{project.developer}}" label="developer" input-required="true"></im-text-input>
-            <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members"></im-text-input>
+            <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members (if any)"></im-text-input>
             
             <div class="nav-buttons">
                 <div></div>
@@ -69,11 +68,16 @@
             <p>You're in code tab</p>
             <div class="nav-buttons">
                 <label for="tech" class="back-button"><i class="fas fa-chevron-left"></i></label>
-                <button type="submit" class="btn btn-secondary" style="color: grey">Submit</button>
+                <div></div>
             </div>
         </div>
-        
-    </form>
+
+		<div id="action-buttons-container">
+			<button type="submit" class="action-button">Submit</button>
+			<a class="action-button" href="/signout">Sign out</a>
+		</form>
+		</div>
+    	
     </div>
 </div>
 
