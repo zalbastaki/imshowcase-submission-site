@@ -19,7 +19,7 @@ Project.add({
 	ageRestriction: { type: Types.Text },
 	theStory: { type: Types.Markdown },
 	instructions: { type: Types.Markdown },
-	images: { type: Types.CloudinaryImage },
+	images: { type: Types.File, storage: storage },
 	//tech
 	techUsed: { type: Types.Text },
 	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required" },
