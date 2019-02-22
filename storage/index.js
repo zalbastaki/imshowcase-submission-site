@@ -1,1 +1,1 @@
-module.exports = require('./azure.js');
+module.exports = require('./s3.js');
