@@ -1,5 +1,9 @@
 {{!< default}}
 
+{{!-- selectr --}}
+<link href="https://cdn.jsdelivr.net/gh/mobius1/selectr@latest/dist/selectr.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/gh/mobius1/selectr@latest/dist/selectr.min.js" type="text/javascript"></script>
+
 {{!-- loads custom web elements polyfill --}}
 <script src="https://unpkg.com/@webcomponents/custom-elements"></script>
 
@@ -9,6 +13,8 @@
         <form action="/api/submission" method="post">
         <input type="hidden" name="action">
 
+		<p id="greeting">{{user.name.first}}'s Submission</p>
+
         <input id="who" class="tab-radio" type="radio" name="tabs" checked="checked">
         <input id="what" class="tab-radio" type="radio" name="tabs">
         <input id="details" class="tab-radio" type="radio" name="tabs">
@@ -17,16 +23,21 @@
 
         <div class="progressbar-container">
             <ul class="progressbar">
-                <li id="who-step">Who?</li>
-                <li id="what-step">What?</li>
-                <li id="details-step">Details</li>
-                <li id="tech-step">Tech</li>
-                <li id="code-step">Code</li>
+                <li id="who-step"><label for="who">Who?</label></li>
+                <li id="what-step"><label for="what">What?</label></li>
+                <li id="details-step"><label for="details">Details</label></li>
+                <li id="tech-step"><label for="tech">Tech</label></li>
+                <li id="code-step"><label for="code">Code</label></li>
             </ul>
         </div>
         
         <div id="who-content">
-            <im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members (if any)"></im-text-input>
+			<label for="teamMembers" class="select-input-label">team members (if any)</label>
+			<select id="teamMembers" name="teamMembers" multiple>
+				{{#each users}}
+					<option value="{{id}}" {{#ifTeamMember id}}selected{{/ifTeamMember}}>{{name.first}}</option>
+				{{/each}}
+			</select>
             
             <div class="nav-buttons">
                 <div></div>
@@ -48,7 +59,8 @@
             <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
             <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story"></im-textarea-input>
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
-            
+            <im-file-input input-id="images" input-name="images" input-accept="image/*" label="images"></im-file-input>
+
             <div class="nav-buttons">
                 <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <label for="tech" class="next-button"><i class="fas fa-chevron-right"></i></label>
@@ -65,7 +77,9 @@
         </div>
         
         <div id="code-content">
-            <p>You're in code tab</p>
+            <im-file-input input-id="demoVersion" input-name="demoVersion" input-accept=".zip" label="demo version"></im-file-input>
+			<im-file-input input-id="fullVersion" input-name="fullVersion" input-accept=".zip" label="full version" input-required=""></im-file-input>
+
             <div class="nav-buttons">
                 <label for="tech" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <div></div>
@@ -95,6 +109,13 @@
     <textarea class="textarea-input" placeholder=" "></textarea>
     <div class="textarea-input-line-animation"></div>
     <div class="textarea-input-required">Required</div>
+</template>
+
+{{!-- template used for custom file input tag --}}
+<template id="t-im-file-input">
+  <label class="file-input-label"></label>
+  <input type="file" class="file-input">
+  <div class="file-input-required">Required</div>
 </template>
 
 {{!-- define custom web elements --}}
@@ -146,4 +167,35 @@
         }
     }
     window.customElements.define('im-textarea-input', IMTextareaInput);
+
+	class IMFileInput extends HTMLElement {
+		constructor() {
+			super();
+
+			var t = document.getElementById('t-im-file-input');
+			var input = t.content.querySelector('input');
+			var label = t.content.querySelector('label');
+
+			input.id = this.getAttribute('input-id');
+			input.name = this.getAttribute('input-name');
+			input.accept = this.getAttribute('input-accept');
+			input.removeAttribute('required');
+            if (this.getAttribute('input-required') === "true") {
+                input.required = true;
+            }
+            label.setAttribute('for', this.getAttribute('input-id'));
+            label.innerText = this.getAttribute('label');
+
+            var clone = document.importNode(t.content, true);
+            this.appendChild(clone);
+		}
+	}
+	window.customElements.define('im-file-input', IMFileInput);
+
+	new Selectr('#teamMembers', {
+		multiple: true,
+		searchable: true,
+		allowDeselect: true,
+	});
+
 </script>

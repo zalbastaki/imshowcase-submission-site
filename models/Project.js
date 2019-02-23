@@ -17,8 +17,8 @@ Project.add({
 	description: { type: Types.Textarea, max: 120, initial: true, note: "required", required: true },
 	//details
 	ageRestriction: { type: Types.Text },
-	theStory: { type: Types.Markdown },
-	instructions: { type: Types.Markdown },
+	theStory: { type: Types.Textarea },
+	instructions: { type: Types.Textarea },
 	images: { type: Types.File, storage: storage },
 	//tech
 	techUsed: { type: Types.Text },
