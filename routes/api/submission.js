@@ -13,6 +13,7 @@ module.exports = async function (req, res) {
 	if (!project) {
 		var newProject = await Project.model.create({
 				developer: user._id,
+				teamMembers: req.body.teamMembers,
 				title: req.body.title,
 				description: req.body.description,
 				ageRestriction: req.body.ageRestriction,
@@ -20,7 +21,7 @@ module.exports = async function (req, res) {
 				instructions: req.body.instructions,
 				images: req.body.images,
 				techUsed: req.body.techUsed,
-				deviceNeeded: req.body.deviceNeeded,
+				devicesNeeded: req.body.devicesNeeded,
 				demoVersion: req.body.demoVersion,
 				fullVersion: req.body.fullVersion,
 		});
@@ -36,7 +37,7 @@ module.exports = async function (req, res) {
 			instructions: req.body.instructions,
 			images: req.body.images,
 			techUsed: req.body.techUsed,
-			deviceNeeded: req.body.deviceNeeded,
+			devicesNeeded: req.body.devicesNeeded,
 			demoVersion: req.body.demoVersion,
 			fullVersion: req.body.fullVersion,
 		});

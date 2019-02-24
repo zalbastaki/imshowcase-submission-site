@@ -59,7 +59,7 @@
             <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
             <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story"></im-textarea-input>
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
-            <im-file-input input-id="images" input-name="images" input-accept="image/*" label="images"></im-file-input>
+            <im-file-input input-id="images" input-name="images" input-accept="image/*" label="screenshot"></im-file-input>
 
             <div class="nav-buttons">
                 <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
@@ -69,6 +69,12 @@
         
         <div id="tech-content">
             <im-text-input input-id="techUsed" input-name="techUsed" input-value="{{project.techUsed}}" label="what tech did you use?"></im-text-input>
+			<label for="devicesNeeded" class="select-input-label">device needed during showcase</label>
+			<select id="devicesNeeded" name="devicesNeeded" multiple>
+				{{#each devices}}
+					<option value="{{id}}" {{#ifDeviceNeeded id}}selected{{/ifDeviceNeeded}}>{{device.first}}</option>
+				{{/each}}
+			</select>
             
             <div class="nav-buttons">
                 <label for="details" class="back-button"><i class="fas fa-chevron-left"></i></label>
@@ -193,6 +199,12 @@
 	window.customElements.define('im-file-input', IMFileInput);
 
 	new Selectr('#teamMembers', {
+		multiple: true,
+		searchable: true,
+		allowDeselect: true,
+	});
+
+	new Selectr('#devicesNeeded', {
 		multiple: true,
 		searchable: true,
 		allowDeselect: true,

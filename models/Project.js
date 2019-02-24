@@ -22,7 +22,7 @@ Project.add({
 	images: { type: Types.File, storage: storage },
 	//tech
 	techUsed: { type: Types.Text },
-	deviceNeeded: { type: Types.Select, options: 'Surface Pro, etc', initial: true, note: "required" },
+	devicesNeeded: { type: Types.Relationship, ref: 'Device', many: true, initial: true, note: "required", required: true },
 	//code
 	demoVersion: { type: Types.File, storage: storage },
 	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required" },
@@ -31,5 +31,5 @@ Project.add({
 /**
  * Registration
  */
-Project.defaultColumns = 'developer, title, deviceNeeded';
+Project.defaultColumns = 'developer, title, devicesNeeded';
 Project.register();
