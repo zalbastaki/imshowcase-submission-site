@@ -8,7 +8,7 @@ var Types = keystone.Field.Types;
 var Device = new keystone.List('Device');
 
 Device.add({
-	device: { type: Types.Name, initial: true, required: true, index: true },
+	device: { type: Types.Text, initial: true, required: true, index: true },
 });
 
 /**

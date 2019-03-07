@@ -10,7 +10,7 @@
 {{!-- page construction begins --}}
 <div class="submission-page">
     <div class="form-container">
-        <form action="/api/submission" method="post">
+        <form action="/api/submission" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action">
 
 		<p id="greeting">{{user.name.first}}'s Submission</p>
@@ -59,7 +59,10 @@
             <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
             <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story"></im-textarea-input>
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
-            <im-file-input input-id="images" input-name="images" input-accept="image/*" label="screenshot"></im-file-input>
+			<im-file-input input-id="screenshot" input-name="screenshot" input-accept="image/*" label="screenshot"></im-file-input>
+			{{#if project.screenshot.url}}
+            	<div class="file-preview"><a href="{{project.screenshot.url}}">Currently uploaded: <i class="far fa-file"></i></a></div>
+			{{/if}}
 
             <div class="nav-buttons">
                 <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
@@ -72,7 +75,7 @@
 			<label for="devicesNeeded" class="select-input-label">device needed during showcase</label>
 			<select id="devicesNeeded" name="devicesNeeded" multiple>
 				{{#each devices}}
-					<option value="{{id}}" {{#ifDeviceNeeded id}}selected{{/ifDeviceNeeded}}>{{device.first}}</option>
+					<option value="{{id}}" {{#ifDeviceNeeded id}}selected{{/ifDeviceNeeded}}>{{device}}</option>
 				{{/each}}
 			</select>
             
@@ -83,8 +86,14 @@
         </div>
         
         <div id="code-content">
-            <im-file-input input-id="demoVersion" input-name="demoVersion" input-accept=".zip" label="demo version"></im-file-input>
-			<im-file-input input-id="fullVersion" input-name="fullVersion" input-accept=".zip" label="full version" input-required=""></im-file-input>
+			<im-file-input input-id="demoVersion" input-name="demoVersion" input-accept=".zip" label="demo version"></im-file-input>
+			{{#if project.demoVersion.url}}
+            	<div class="file-preview"><a href="{{project.demoVersion.url}}">Currently uploaded: <i class="far fa-file"></i></a></div>
+			{{/if}}
+            <im-file-input input-id="fullVersion" input-name="fullVersion" input-accept=".zip" label="full version" input-required=""></im-file-input>
+			{{#if project.fullVersion.url}}
+            	<div class="file-preview"><a href="{{project.fullVersion.url}}">Currently uploaded: <i class="far fa-file"></i></a></div>
+			{{/if}}
 
             <div class="nav-buttons">
                 <label for="tech" class="back-button"><i class="fas fa-chevron-left"></i></label>

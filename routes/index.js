@@ -45,7 +45,7 @@ exports = module.exports = function (app) {
 	app.get('/submission', routes.api.checkSignin, routes.views.submission);
 	app.get('/signout', routes.views.signout);
 
-	app.post('/api/submission', routes.api.checkSignin, routes.api.submission);
+	app.post('/api/submission', routes.api.checkSignin, keystone.middleware.api, routes.api.submission);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

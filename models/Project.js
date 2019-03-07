@@ -13,16 +13,16 @@ Project.add({
 	developer: { type: Types.Relationship, ref: 'User', initial: true, note: "required", required: true },
 	teamMembers: { type: Types.Relationship, ref: 'User', many: true },
 	//what
-	title: { type: Types.Text, initial: true, note: "required", required: true },
-	description: { type: Types.Textarea, max: 120, initial: true, note: "required", required: true },
+	title: { type: Types.Text, initial: true, note: "required" },
+	description: { type: Types.Textarea, initial: true, note: "required" },
 	//details
 	ageRestriction: { type: Types.Text },
 	theStory: { type: Types.Textarea },
 	instructions: { type: Types.Textarea },
-	images: { type: Types.File, storage: storage },
+	screenshot: { type: Types.File, storage: storage },
 	//tech
 	techUsed: { type: Types.Text },
-	devicesNeeded: { type: Types.Relationship, ref: 'Device', many: true, initial: true, note: "required", required: true },
+	devicesNeeded: { type: Types.Relationship, ref: 'Device', many: true, initial: true, note: "required" },
 	//code
 	demoVersion: { type: Types.File, storage: storage },
 	fullVersion: { type: Types.File, storage: storage, initial: true, note: "required" },

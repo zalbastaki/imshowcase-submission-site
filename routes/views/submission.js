@@ -20,9 +20,9 @@ exports = module.exports = async function (req, res) {
 		const locals = res.locals;
 
 		let project = await Project.model.findOne().where('developer', user.id);
-
+		
 		hbs.registerHelper("ifTeamMember", function(id, opts) {
-			if (project) {
+			if (project && project.teamMembers) {
 				for (var i = 0; i < project.teamMembers.length; i++) {
 					if (project.teamMembers[i] == id) {
 						return opts.fn(this);
@@ -34,7 +34,7 @@ exports = module.exports = async function (req, res) {
 		});
 
 		hbs.registerHelper("ifDeviceNeeded", function(id, opts) {
-			if (project) {
+			if (project && project.devicesNeeded) {
 				for (var i = 0; i < project.devicesNeeded.length; i++) {
 					if (project.devicesNeeded[i] == id) {
 						return opts.fn(this);
