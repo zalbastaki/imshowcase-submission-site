@@ -28,7 +28,7 @@ keystone.init({
 		extname: '.hbs',
 	}).engine,
 
-	// 'mongo': process.env.MONGO_URI,
+	'mongo': process.env.MONGO_URI,
 	// 'session store': 'mongo',
 
 	'auto update': true,
