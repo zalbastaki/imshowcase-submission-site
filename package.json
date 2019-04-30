@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node keystone.js",
-    "zip": "zip -r `git tag`.zip . -x '*node_modules*' -x '*.git*' -x '*.vscode*'"
+    "zip": "zip -r `git describe --tags`.zip . -x '*node_modules*' -x '*.git*' -x '*.vscode*'"
   },
   "dependencies": {
     "async": "^2.6.2",
