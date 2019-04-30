@@ -17,10 +17,28 @@ module.exports = async function (req, res) {
 			developer: user._id,
 		});
 	}
+
+	if (req.body.screenshotDelete) {
+		await project.update({
+			screenshot: 'remove',
+		});
+	}
 	
-	const screenshot = req.files.screenshot && await promisify(project._.screenshot.upload)(req.files.screenshot);
-	const demoVersion = req.files.demoVersion && await promisify(project._.demoVersion.upload)(req.files.demoVersion);
-	const fullVersion = req.files.fullVersion && await promisify(project._.fullVersion.upload)(req.files.fullVersion);
+	if (req.body.demoVersionDelete) {
+		await project.update({
+			demoVersion: 'remove',
+		});
+	}
+	
+	if (req.body.fullVersionDelete) {
+		await project.update({
+			fullVersion: 'remove',
+		});
+	}
+	
+	var screenshot = req.files.screenshot && await promisify(project._.screenshot.upload)(req.files.screenshot);
+	var demoVersion = req.files.demoVersion && await promisify(project._.demoVersion.upload)(req.files.demoVersion);
+	var fullVersion = req.files.fullVersion && await promisify(project._.fullVersion.upload)(req.files.fullVersion);
 
 	project = await project.update(_.omitBy({
 		teamMembers: req.body.teamMembers,
