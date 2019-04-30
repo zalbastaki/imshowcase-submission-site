@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwkToPem = require('jwk-to-pem');
-const jwks = require('../jwks.json').keys;
+const jwks = JSON.parse(process.env.COGNITO_JWKS).keys;
 
 module.exports = {
 	/**
