@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node keystone.js"
+    "start": "node keystone.js",
+    "zip": "zip -r `git tag`.zip . -x '*node_modules*' -x '*.git*' -x '*.vscode*'"
   },
   "dependencies": {
     "async": "^2.6.2",
