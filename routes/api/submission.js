@@ -19,6 +19,7 @@ module.exports = async function (req, res) {
 	}
 
 	if (req.body.screenshotDelete) {
+		await promisify(project._.screenshot.remove)();
 		await project.update({
 			screenshot: 'remove',
 		});
@@ -32,9 +33,22 @@ module.exports = async function (req, res) {
 	}
 	
 	if (req.body.fullVersionDelete) {
+		await promisify(project._.fullVersion.remove)();
 		await project.update({
 			fullVersion: 'remove',
 		});
+	}
+
+	if (project.screenshot.filename && req.files.screenshot) {
+		await promisify(project._.screenshot.remove)();
+	}
+
+	if (project.demoVersion.filename && req.files.demoVersion) {
+		await promisify(project._.demoVersion.remove)();
+	}
+
+	if (project.fullVersion.filename && req.files.fullVersion) {
+		await promisify(project._.fullVersion.remove)();
 	}
 
 	var screenshot = req.files.screenshot && await promisify(project._.screenshot.upload)(req.files.screenshot);

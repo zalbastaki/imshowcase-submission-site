@@ -61,8 +61,12 @@
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
 			<im-file-input input-id="screenshot" input-name="screenshot" input-accept="image/*" label="screenshot"></im-file-input>
 			{{#if project.screenshot.url}}
-            	<div class="file-preview"><a href="{{project.screenshot.url}}">Currently uploaded <i class="far fa-file"></i></a></div>
-				<input type="checkbox" class="remove-file" name="screenshotDelete">
+            	<div class="file-preview-container">
+					<a class="file-preview" id="screenshotPreview" href="{{project.screenshot.url}}" target="_blank">Currently uploaded file</a>
+					<label class="file-remove-icon" for="screenshotDelete"><i class="fas fa-times-circle"></i></label>
+				</div>
+				<input type="checkbox" class="file-remove-input" name="screenshotDelete" id="screenshotDelete">
+				<div class="file-remove-res" id="screenshotDeleteRes">Click submit to remove the file, or <label class="file-remove-undo" for="screenshotDelete">click here to undo</label>.</div>
 			{{/if}}
 
             <div class="nav-buttons">
