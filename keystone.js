@@ -29,7 +29,7 @@ keystone.init({
 	}).engine,
 
 	'mongo': process.env.MONGO_URI,
-	// 'session store': 'mongo',
+	'session store': 'mongo',
 
 	'auto update': true,
 	'session': true,
