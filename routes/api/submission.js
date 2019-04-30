@@ -25,6 +25,7 @@ module.exports = async function (req, res) {
 	}
 	
 	if (req.body.demoVersionDelete) {
+		await promisify(project._.demoVersion.remove)();
 		await project.update({
 			demoVersion: 'remove',
 		});
@@ -35,7 +36,7 @@ module.exports = async function (req, res) {
 			fullVersion: 'remove',
 		});
 	}
-	
+
 	var screenshot = req.files.screenshot && await promisify(project._.screenshot.upload)(req.files.screenshot);
 	var demoVersion = req.files.demoVersion && await promisify(project._.demoVersion.upload)(req.files.demoVersion);
 	var fullVersion = req.files.fullVersion && await promisify(project._.fullVersion.upload)(req.files.fullVersion);
