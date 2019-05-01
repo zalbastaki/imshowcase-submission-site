@@ -18,7 +18,9 @@ docker run -it --rm \
 		-d imshowcase.co.uk \
 		-d *.imshowcase.co.uk
 
-aws s3 cp letsencrypt/live/imshowcase.co.uk/cert.pem s3://elasticbeanstalk-eu-west-1-557770062002/certs/server.crt
+aws s3 cp letsencrypt/live/imshowcase.co.uk/fullchain.pem s3://elasticbeanstalk-eu-west-1-557770062002/certs/server.crt
 
 aws s3 cp letsencrypt/live/imshowcase.co.uk/privkey.pem s3://elasticbeanstalk-eu-west-1-557770062002/certs/server.key
+
+aws elasticbeanstalk rebuild-environment --environment-id e-rvkjrtg52e
 ```
