@@ -38,6 +38,7 @@
 					<option value="{{id}}" {{#ifTeamMember id}}selected{{/ifTeamMember}}>{{name.first}}</option>
 				{{/each}}
 			</select>
+			<div class="input-note">Note: Each team member needs to create an account for their name to be visible here.</div>
             
             <div class="nav-buttons">
                 <div></div>
@@ -57,7 +58,7 @@
 
         <div id="details-content">
             <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
-            <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story"></im-textarea-input>
+            <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story behind the project"></im-textarea-input>
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
 			<im-file-input input-id="screenshot" input-name="screenshot" input-accept="image/*" label="screenshot"></im-file-input>
 			{{#if project.screenshot.url}}
