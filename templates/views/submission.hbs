@@ -145,6 +145,7 @@
 {{!-- template used for custom file input tag --}}
 <template id="t-im-file-input">
   <label class="file-input-label"></label>
+  <div class="file-input-max">Note: the maximum file size is 50MB. Attempting to upload a larger file will crash the server.</div>
   <input type="file" class="file-input" oninvalid="showError()">
   <div class="file-input-required">Required</div>
 </template>
