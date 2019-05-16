@@ -43,6 +43,7 @@ exports = module.exports = function (app) {
 	app.get('/signup', routes.views.signup);
 	app.get('/api/auth', routes.api.auth);
 	app.get('/submission', routes.api.checkSignin, routes.views.submission);
+	app.get('/submission-success', routes.views["submission-success"]);
 	app.get('/signout', routes.views.signout);
 
 	app.post('/api/submission', routes.api.checkSignin, keystone.middleware.api, routes.api.submission);

@@ -69,6 +69,6 @@ module.exports = async function (req, res) {
 		fullVersion,
 	}, _.isUndefined));
 
-	res.redirect("/submission");
+	res.redirect("/submission-success");
   
 };
