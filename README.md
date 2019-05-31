@@ -1,3 +1,9 @@
+## Development
+
+* Whitelist your IP Address in MongoDB:
+	* In the project, under security > network access
+* Run `nodemon keystone`
+
 ## Deployment
 
 ### Lets Encrypt
