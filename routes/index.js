@@ -42,6 +42,7 @@ exports = module.exports = function (app) {
 	app.get('/signin', routes.views.signin);
 	app.get('/signup', routes.views.signup);
 	app.get('/api/auth', routes.api.auth);
+	app.get('/dashboard', routes.api.checkSignin, routes.views.dashboard);
 	app.get('/submission', routes.api.checkSignin, routes.views.submission);
 	app.get('/submission-success', routes.views["submission-success"]);
 	app.get('/submission-fail', routes.views["submission-fail"]);

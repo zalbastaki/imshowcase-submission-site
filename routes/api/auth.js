@@ -54,6 +54,6 @@ module.exports = async function (req, res) {
 		//secure: true,
 	});
 
-	res.redirect('/submission');
+	res.redirect('/dashboard');
 
 };

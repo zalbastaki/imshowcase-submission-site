@@ -8,12 +8,14 @@
 <script src="https://unpkg.com/@webcomponents/custom-elements"></script>
 
 {{!-- page construction begins --}}
-<div class="submission-page">
-    <div class="form-container">
+<div class="page">
+    <div class="page-container">
         <form action="/api/submission" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action">
 
-		<p id="greeting">{{user.name.first}}'s Submission</p>
+		{{#if project}}<input type="hidden" name="projectId" value="{{project._id}}">{{/if}}
+
+		<p class="page-heading">{{#if project}}{{project.title}}{{else}}New Submission{{/if}}</p>
 
         <input id="who" class="tab-radio" type="radio" name="tabs" checked="checked">
         <input id="what" class="tab-radio" type="radio" name="tabs">
@@ -118,9 +120,9 @@
 
 		<div id="error-message">Oops, something's wrong with your submission. Make sure you filled out all the required fields.</div>
 
-		<div id="action-buttons-container">
-			<button type="submit" class="action-button">Submit</button>
-			<a class="action-button" href="/signout">Sign out</a>
+		<div class="buttons-container">
+			<button type="submit" class="button">{{#if project}}Update{{else}}Submit{{/if}}</button>
+			<a class="button button-margin" href="/dashboard">Cancel</a>
 		</form>
 		</div>
     	

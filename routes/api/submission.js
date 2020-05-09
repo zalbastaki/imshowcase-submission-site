@@ -12,7 +12,7 @@ module.exports = async function (req, res) {
 	
 		const user = await User.model.findOne({ cognitoUsername: accessPayload.sub });
 
-		let project = await Project.model.findOne().where('developer', user.id);
+		let project = await Project.model.findOne().where('_id', req.body.projectId);
 		
 		if (!project) {
 			project = await Project.model.create({

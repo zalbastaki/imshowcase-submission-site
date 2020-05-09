@@ -1,0 +1,21 @@
+{{!< default}}
+
+<div class="page">
+	<div class="page-container">
+		<p class="page-heading">{{user.name.first}}'s Submissions</p>
+
+		<div class="submissions-container">
+			{{#each projects}}
+				<a href="/submission?project={{_id}}" class="submission-preview">{{title}}</a>
+			{{/each}}
+		</div>
+
+		<hr>
+
+		<a href="/submission" class="submission-preview">+ New Submission</a>
+
+		<div class="buttons-container">
+			<a class="button" href="/signout">Sign out</a>
+		</div>
+	</div>
+</div>

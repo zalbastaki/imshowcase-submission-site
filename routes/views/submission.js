@@ -19,7 +19,7 @@ exports = module.exports = async function (req, res) {
 		const view = new keystone.View(req, res);
 		const locals = res.locals;
 
-		let project = await Project.model.findOne().where('developer', user.id);
+		let project = await Project.model.findOne().where('_id', req.query.project);
 		
 		hbs.registerHelper("ifTeamMember", function(id, opts) {
 			if (project && project.teamMembers) {
