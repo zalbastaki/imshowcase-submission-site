@@ -57,7 +57,7 @@ module.exports = async function (req, res) {
 			video,
 			sourceCode,
 			isValid: req.body.isValid || false,
-			sharePermission: req.body.sharePermission || false,
+			shareOptOut: req.body.shareOptOut || false,
 		}, _.isUndefined));
 
 		res.status(200);
