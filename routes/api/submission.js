@@ -19,63 +19,52 @@ module.exports = async function (req, res) {
 				developer: user._id,
 			});
 		}
-
-		if (req.body.screenshotDelete) {
-			await promisify(project._.screenshot.remove)();
+		
+		if (req.body.videoDelete) {
+			await promisify(project._.video.remove)();
 			await project.update({
-				screenshot: 'remove',
+				video: 'remove',
 			});
 		}
 		
-		if (req.body.demoVersionDelete) {
-			await promisify(project._.demoVersion.remove)();
+		if (req.body.sourceCodeDelete) {
+			await promisify(project._.sourceCode.remove)();
 			await project.update({
-				demoVersion: 'remove',
-			});
-		}
-		
-		if (req.body.fullVersionDelete) {
-			await promisify(project._.fullVersion.remove)();
-			await project.update({
-				fullVersion: 'remove',
+				sourceCode: 'remove',
 			});
 		}
 
-		if (project.screenshot.filename && req.files.screenshot) {
-			await promisify(project._.screenshot.remove)();
+		if (project.video.filename && req.files.video) {
+			await promisify(project._.video.remove)();
 		}
 
-		if (project.demoVersion.filename && req.files.demoVersion) {
-			await promisify(project._.demoVersion.remove)();
+		if (project.sourceCode.filename && req.files.sourceCode) {
+			await promisify(project._.sourceCode.remove)();
 		}
 
-		if (project.fullVersion.filename && req.files.fullVersion) {
-			await promisify(project._.fullVersion.remove)();
-		}
-
-		var screenshot = req.files.screenshot && await promisify(project._.screenshot.upload)(req.files.screenshot);
-		var demoVersion = req.files.demoVersion && await promisify(project._.demoVersion.upload)(req.files.demoVersion);
-		var fullVersion = req.files.fullVersion && await promisify(project._.fullVersion.upload)(req.files.fullVersion);
+		var video = req.files.video && await promisify(project._.video.upload)(req.files.video);
+		var sourceCode = req.files.sourceCode && await promisify(project._.sourceCode.upload)(req.files.sourceCode);
 
 		project = await project.update(_.omitBy({
 			teamMembers: req.body.teamMembers,
+			webLinks: req.body.webLinks,
 			title: req.body.title,
 			description: req.body.description,
-			ageRestriction: req.body.ageRestriction,
-			theStory: req.body.theStory,
+			contentWarnings: req.body.contentWarnings,
 			instructions: req.body.instructions,
-			screenshot,
-			techUsed: req.body.techUsed,
+			accessibility: req.body.accessibility,
 			devicesNeeded: req.body.devicesNeeded,
-			demoVersion,
-			fullVersion,
+			video,
+			sourceCode,
 		}, _.isUndefined));
 
-		res.redirect("/submission-success");
-	
+		res.status(200);
+		res.redirect('/submission-success');
 	} catch(err) {
 		console.log(err);
-		res.redirect("/submission-fail");
+		res.status(500);
+		res.render('error', { error: err });
+		res.redirect('/submission-fail');
 	}
   
 };

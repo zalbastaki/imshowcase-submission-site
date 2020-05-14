@@ -10,7 +10,7 @@
 {{!-- page construction begins --}}
 <div class="page">
     <div class="page-container">
-        <form action="/api/submission" method="post" enctype="multipart/form-data">
+        <form id="submission-form" enctype="multipart/form-data">
         <input type="hidden" name="action">
 
 		{{#if project}}<input type="hidden" name="projectId" value="{{project._id}}">{{/if}}
@@ -28,19 +28,16 @@
                 <li id="who-step"><label for="who">Who?</label></li>
                 <li id="what-step"><label for="what">What?</label></li>
                 <li id="details-step"><label for="details">Details</label></li>
-                <li id="tech-step"><label for="tech">Tech</label></li>
-                <li id="code-step"><label for="code">Code</label></li>
+                <li id="tech-step"><label for="tech">Showcase</label></li>
+                <li id="code-step"><label for="code">Project</label></li>
             </ul>
         </div>
         
         <div id="who-content">
-			<label for="teamMembers" class="select-input-label">team members (if any)</label>
-			<select id="teamMembers" name="teamMembers" multiple>
-				{{#each users}}
-					<option value="{{id}}" {{#ifTeamMember id}}selected{{/ifTeamMember}}>{{name.first}}</option>
-				{{/each}}
-			</select>
-			<div class="input-note">Note: Each team member needs to create an account for their name to be visible here.</div>
+			<im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members (if any)"></im-text-input>
+			<div class="input-note">Note: Comma-separated list.</div>
+			<im-text-input input-id="webLinks" input-name="webLinks" input-value="{{project.webLinks}}" label="web links (if any)"></im-text-input>
+			<div class="input-note">Note: Comma-separated list.</div>
             
             <div class="nav-buttons">
                 <div></div>
@@ -59,18 +56,8 @@
         </div>
 
         <div id="details-content">
-            <im-text-input input-id="ageRestriction" input-name="ageRestriction" input-value="{{project.ageRestriction}}" label="age restriction"></im-text-input>
-            <im-textarea-input input-id="theStory" input-name="theStory" input-value="{{project.theStory}}" label="the story behind the project"></im-textarea-input>
+            <im-text-input input-id="contentWarnings" input-name="contentWarnings" input-value="{{project.contentWarnings}}" label="content warnings"></im-text-input>
             <im-textarea-input input-id="instructions" input-name="instructions" input-value="{{project.instructions}}" label="instructions"></im-textarea-input>
-			<im-file-input input-id="screenshot" input-name="screenshot" input-accept="image/*" label="screenshot"></im-file-input>
-			{{#if project.screenshot.url}}
-            	<div class="file-preview-container">
-					<a class="file-preview" id="screenshotPreview" href="{{project.screenshot.url}}" target="_blank">Currently uploaded file</a>
-					<label class="file-remove-icon" for="screenshotDelete"><i class="fas fa-times-circle"></i></label>
-				</div>
-				<input type="checkbox" class="file-remove-input" name="screenshotDelete" id="screenshotDelete">
-				<div class="file-remove-res" id="screenshotDeleteRes">Click submit to remove the file, or <label class="file-remove-undo" for="screenshotDelete">click here to undo</label>.</div>
-			{{/if}}
 
             <div class="nav-buttons">
                 <label for="what" class="back-button"><i class="fas fa-chevron-left"></i></label>
@@ -79,7 +66,7 @@
         </div>
         
         <div id="tech-content">
-            <im-text-input input-id="techUsed" input-name="techUsed" input-value="{{project.techUsed}}" label="what tech did you use?"></im-text-input>
+            <im-text-input input-id="accessibility" input-name="accessibility" input-value="{{project.accessibility}}" label="accessibility considerations"></im-text-input>
 			<label for="devicesNeeded" class="select-input-label">device needed during showcase</label>
 			<select id="devicesNeeded" name="devicesNeeded" multiple required oninvalid="showError()">
 				{{#each devices}}
@@ -95,21 +82,21 @@
         </div>
         
         <div id="code-content">
-			<im-file-input input-id="demoVersion" input-name="demoVersion" input-accept=".zip" label="demo version"></im-file-input>
-			{{#if project.demoVersion.url}}
+			<im-file-input input-id="video" input-name="video" input-accept="video/*" label="video"></im-file-input>
+			{{#if project.video.url}}
             	<div class="file-preview-container">
-					<a class="file-preview" id="demoVersionPreview" href="{{project.demoVersion.url}}">Currently uploaded file</a>
-					<label class="file-remove-icon" for="demoVersionDelete"><i class="fas fa-times-circle"></i></label>
+					<a class="file-preview" id="videoPreview" href="{{project.video.url}}">Current upload (click to download)</a>
+					<label class="file-remove-icon" for="videoDelete"><i class="fas fa-times-circle"></i></label>
 				</div>
-				<input type="checkbox" class="file-remove-input" name="demoVersionDelete" id="demoVersionDelete">
-				<div class="file-remove-res" id="demoVersionDeleteRes">Click submit to remove the file, or <label class="file-remove-undo" for="demoVersionDelete">click here to undo</label>.</div>
+				<input type="checkbox" class="file-remove-input" name="videoDelete" id="videoDelete">
+				<div class="file-remove-res" id="videoDeleteRes">Click submit to remove the file, or <label class="file-remove-undo" for="videoDelete">click here to undo</label>.</div>
 			{{/if}}
-            <im-file-input input-id="fullVersion" input-name="fullVersion" input-accept=".zip" label="full version" {{#unless project.fullVersion.url}}input-required="true"{{/unless}}></im-file-input>
-			{{#if project.fullVersion.url}}
+            <im-file-input input-id="sourceCode" input-name="sourceCode" input-accept=".zip" label="source code" {{#unless project.sourceCode.url}}input-required="true"{{/unless}}></im-file-input>
+			{{#if project.sourceCode.url}}
             	<div class="file-preview-container">
-					<a class="file-preview" id="fullVersionPreview" href="{{project.fullVersion.url}}">Currently uploaded file</a>
+					<a class="file-preview" id="sourceCodePreview" href="{{project.sourceCode.url}}">Current upload (click to download)</a>
 				</div>
-				<div>This file cannot be removed because this field is required. Try to upload a new file instead.</div>
+				<div class="file-preview-note">This file cannot be removed because this field is required. Try to upload a new file instead.</div>
 			{{/if}}
 
             <div class="nav-buttons">
@@ -120,7 +107,12 @@
 
 		<div id="error-message">Oops, something's wrong with your submission. Make sure you filled out all the required fields.</div>
 
-		<div class="buttons-container">
+		<div id="loader-container">
+			<div id="loader"></div>
+			Loading...
+		</div>
+
+		<div class="buttons-container" id="submission-buttons">
 			<button type="submit" class="button">{{#if project}}Update{{else}}Submit{{/if}}</button>
 			<a class="button button-margin" href="/dashboard">Cancel</a>
 		</form>
@@ -152,9 +144,6 @@
   <div class="file-input-max">Note: the maximum file size is 20GB. Attempting to upload a larger file will crash the server.</div>
   <div class="file-input-required">Required</div>
 </template>
-
-{{!-- template used for file preview --}}
-
 
 {{!-- define custom web elements --}}
 <script>
@@ -230,12 +219,6 @@
 	}
 	window.customElements.define('im-file-input', IMFileInput);
 
-	new Selectr('#teamMembers', {
-		multiple: true,
-		searchable: true,
-		allowDeselect: true,
-	});
-
 	new Selectr('#devicesNeeded', {
 		multiple: true,
 		searchable: true,
@@ -245,5 +228,32 @@
 	function showError() {
 		document.getElementById('error-message').style.display = "block";
 	}
+</script>
 
+{{!-- form submission --}}
+<script>
+	const form = document.getElementById('submission-form');
+	const loader = document.getElementById('loader-container');
+	const buttons = document.getElementById('submission-buttons');
+	
+	form.addEventListener("submit", submitForm);
+
+	function submitForm (e) {
+		e.preventDefault();
+
+		buttons.style.display = "none";
+		loader.style.display = "flex";
+
+		const xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				window.location.href = xhr.status === 200 ? '/submission-success' : '/submission-fail';
+			}
+		}
+
+		xhr.open("POST", "/api/submission");
+
+		xhr.send(new FormData(form));
+	}
 </script>
