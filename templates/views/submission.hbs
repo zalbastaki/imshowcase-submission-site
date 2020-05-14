@@ -100,10 +100,10 @@
 			{{/if}}
 
 			<div class="confirmation">
-				<input type="checkbox" id="isValid" name="isValid" checked="{{project.isValid}}" required>
+				<input type="checkbox" id="isValid" name="isValid" {{#if project.isValid}}checked{{/if}} required>
 				<label for="isValid"> I confirm that this project was made during the 2019-2020 academic year.</label>
 				<br>
-				<input type="checkbox" id="sharePermission" name="sharePermission" checked="{{project.sharePermission}}">
+				<input type="checkbox" id="sharePermission" name="sharePermission" {{#if project.sharePermission}}checked{{/if}}>
 				<label for="sharePermission"> I give permission to share this project online.</label>
 			</div>
 
@@ -271,15 +271,20 @@
 	const requiredFields = form.querySelectorAll("[required]");
 	const submitBtn = document.getElementById("submit-btn");
 
+	controlSubmitBtn();
+
 	requiredFields.forEach(field => {
-		controlSubmitBtn();
 		field.addEventListener("input", controlSubmitBtn);
 		field.addEventListener("change", controlSubmitBtn);
 	});
 
 	function controlSubmitBtn () {
+		submitBtn.disabled = false;
+
 		requiredFields.forEach(field => {
-			submitBtn.disabled = field.type === "checkbox" ? !field.checked : !field.value;
+			if (field.type === "checkbox" && !field.checked || !field.value) {
+				submitBtn.disabled = true;
+			}
 		});
 	};
 </script>
