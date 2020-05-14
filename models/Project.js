@@ -25,6 +25,9 @@ Project.add({
 	//project
 	video: { type: Types.File, storage: storage },
 	sourceCode: { type: Types.File, storage: storage, initial: true, note: "required" },
+	//confirmation
+	isValid: { type: Types.Boolean, initial: true, note: "required" },
+	sharePermission: { type: Types.Boolean },
 });
 
 /**

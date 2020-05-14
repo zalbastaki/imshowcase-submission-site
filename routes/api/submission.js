@@ -56,6 +56,8 @@ module.exports = async function (req, res) {
 			devicesNeeded: req.body.devicesNeeded,
 			video,
 			sourceCode,
+			isValid: req.body.isValid,
+			sharePermission: req.body.sharePermission,
 		}, _.isUndefined));
 
 		res.status(200);

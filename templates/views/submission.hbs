@@ -99,6 +99,14 @@
 				<div class="file-preview-note">This file cannot be removed because this field is required. Try to upload a new file instead.</div>
 			{{/if}}
 
+			<div class="confirmation">
+				<input type="checkbox" id="isValid" name="isValid" checked="{{project.isValid}}" required>
+				<label for="isValid"> I confirm that this project was made during the 2019-2020 academic year.</label>
+				<br>
+				<input type="checkbox" id="sharePermission" name="sharePermission" checked="{{project.sharePermission}}">
+				<label for="sharePermission"> I give permission to share this project online.</label>
+			</div>
+
             <div class="nav-buttons">
                 <label for="tech" class="back-button"><i class="fas fa-chevron-left"></i></label>
                 <div></div>
@@ -271,7 +279,7 @@
 
 	function controlSubmitBtn () {
 		requiredFields.forEach(field => {
-			submitBtn.disabled = !field.value;
+			submitBtn.disabled = field.type === "checkbox" ? !field.checked : !field.value;
 		});
 	};
 </script>
