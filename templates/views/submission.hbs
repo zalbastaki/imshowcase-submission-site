@@ -113,7 +113,7 @@
 		</div>
 
 		<div class="buttons-container" id="submission-buttons">
-			<button type="submit" class="button">{{#if project}}Update{{else}}Submit{{/if}}</button>
+			<button type="submit" id="submit-btn" class="button" disabled>{{#if project}}Update{{else}}Submit{{/if}}</button>
 			<a class="button button-margin" href="/dashboard">Cancel</a>
 		</form>
 		</div>
@@ -248,7 +248,7 @@
 
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
-				window.location.href = xhr.status === 200 ? '/submission-success' : '/submission-fail';
+				window.location.href = xhr.status === 200 ? "/submission-success" : "/submission-fail";
 			}
 		}
 
@@ -256,4 +256,22 @@
 
 		xhr.send(new FormData(form));
 	}
+</script>
+
+{{!-- submit button controls --}}
+<script>
+	const requiredFields = form.querySelectorAll("[required]");
+	const submitBtn = document.getElementById("submit-btn");
+
+	requiredFields.forEach(field => {
+		controlSubmitBtn();
+		field.addEventListener("input", controlSubmitBtn);
+		field.addEventListener("change", controlSubmitBtn);
+	});
+
+	function controlSubmitBtn () {
+		requiredFields.forEach(field => {
+			submitBtn.disabled = !field.value;
+		});
+	};
 </script>
