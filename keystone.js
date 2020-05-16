@@ -12,7 +12,7 @@ var handlebars = require('express-handlebars');
 
 keystone.init({
 	'name': 'IM Showcase Submissions Admin',
-	'brand': 'IMShowcaseSubmissionSite',
+	'brand': 'IM Showcase Submissions Admin',
 
 	'less': 'public',
 	'static': 'public',
