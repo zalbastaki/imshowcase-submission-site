@@ -37,7 +37,7 @@
 			<im-text-input input-id="teamMembers" input-name="teamMembers" input-value="{{project.teamMembers}}" label="team members (if any)"></im-text-input>
 			<div class="input-note">Note: Comma-separated list.</div>
 			<im-text-input input-id="webLinks" input-name="webLinks" input-value="{{project.webLinks}}" label="web links (if any)"></im-text-input>
-			<div class="input-note">Note: Comma-separated list.</div>
+			<div class="input-note">Note: Comma-separated list of links to portfolios, or other ways to contact you.</div>
             
             <div class="nav-buttons">
                 <div></div>
@@ -82,7 +82,7 @@
         </div>
         
         <div id="code-content">
-			<im-file-input input-id="video" input-name="video" input-accept="video/*" label="video"></im-file-input>
+			<im-file-input input-id="video" input-name="video" input-accept="video/*" label="video (for the virtual showcase)"></im-file-input>
 			{{#if project.video.url}}
             	<div class="file-preview-container">
 					<a class="file-preview" id="videoPreview" href="{{project.video.url}}">Current upload (click to download)</a>
@@ -149,7 +149,7 @@
 <template id="t-im-file-input">
   <label class="file-input-label"></label>
   <input type="file" class="file-input" oninvalid="showError()">
-  <div class="file-input-max">Note: the maximum file size is 20GB. Attempting to upload a larger file will crash the server.</div>
+  <div class="file-input-max">Note: The maximum file size is 20GB. Attempting to upload a larger file will crash the server.</div>
   <div class="file-input-required">Required</div>
 </template>
 
