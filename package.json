@@ -17,7 +17,7 @@
     "jwk-to-pem": "^2.0.3",
     "keystone": "github:zalbastaki/keystone#v4.0.1",
     "keystone-storage-adapter-s3": "^2.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mobius1-selectr": "^2.4.13",
     "moment": "^2.25.3",
     "node-fetch": "^2.6.0"
