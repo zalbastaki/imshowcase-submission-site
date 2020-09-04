@@ -12,7 +12,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^7.0.0",
     "express-handlebars": "^3.1.0",
-    "handlebars": "4.3.0",
+    "handlebars": "4.5.3",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.3",
     "keystone": "github:zalbastaki/keystone#v4.0.1",
