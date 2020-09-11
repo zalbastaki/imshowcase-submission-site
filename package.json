@@ -20,7 +20,7 @@
     "lodash": "^4.17.15",
     "mobius1-selectr": "^2.4.13",
     "moment": "^2.25.3",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {}
 }
