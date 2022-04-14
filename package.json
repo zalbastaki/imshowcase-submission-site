@@ -7,7 +7,7 @@
     "zip": "zip -r \"imshowcasesubmissionsite-`git describe --tags`.zip\" . -x '*node_modules*' -x '*.git*' -x '*.vscode*' -x '*.DS_Store*'"
   },
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^3.2.2",
     "connect-mongo": "^2.0.3",
     "cookie-parser": "^1.4.5",
     "dotenv": "^7.0.0",
